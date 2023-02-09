@@ -1,0 +1,56 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+
+    <button mat-icon-button  (click)="drawer.toggle();"><mat-icon routerLinkActive="active-icon">menu</mat-icon></button>
+
+
+    <span class="toolbar-spacer "></span>
+    <div>
+      <a mat-button [routerLink]="'/home'"> Home </a>
+      <a mat-button [routerLink]="'/contacts'"> Contacts </a>
+      <a mat-button [routerLink]="'/about'"> About Us </a>
+    </div>
+
+    <button  mat-fab color="warn" [routerLink]="['/profile']">
+      <mat-icon>home</mat-icon>
+    </button>
+
+
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+
+    </mat-menu>
+
+    </mat-toolbar-row>
+
+  </mat-toolbar>
+
+<mat-sidenav-container class="sidenav-container" >
+  <mat-sidenav
+  #drawer
+  class="sidenav"
+  opened="true"
+>
+
+    <mat-nav-list >
+      <a [routerLink]="['/Dashboard']" mat-list-item href="#" routerLinkActive="active"><mat-icon routerLinkActive="active-icon">home</mat-icon><span class="ml-2" > Dashboard </span></a>
+      <a mat-list-item [routerLink]="'/courses'"> Courses </a>
+      <a mat-list-item [routerLink]="'/students'"> Students </a>
+      <a mat-list-item [routerLink]="'/teachers'"> Teachers </a>
+      <a [routerLink]="['/profile']" mat-list-item href="#" routerLinkActive="active"><mat-icon routerLinkActive="active-icon">settings</mat-icon><span class="ml-2" > Settings</span></a>
+      <!-- <a mat-list-item (click)="sidenav.toggle()" href="" mat-list-item>Close</a> -->
+
+    </mat-nav-list>
+
+  </mat-sidenav>
+
+  <mat-sidenav-content  >
+    <div class="main">
+      <router-outlet #outlet="outlet"></router-outlet>
+    </div>
+
+
+  </mat-sidenav-content>
+</mat-sidenav-container>
