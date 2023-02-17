@@ -14,6 +14,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { StudentCrudComponent } from './components/students/student-crud/student-crud.component';
 import { TeacherCrudComponent } from './components/teachers/teacher-crud/teacher-crud.component';
 import { CourseCrudComponent } from './components/courses/course-crud/course-crud.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { CourseCrudComponent } from './components/courses/course-crud/course-cru
     AppRoutingModule,
     BrowserAnimationsModule,
     AngularMaterialModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
