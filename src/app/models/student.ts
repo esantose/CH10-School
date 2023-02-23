@@ -5,7 +5,6 @@ export class Student {
   firstName!: string;
   lastName!: string;
   birthDate!: Date;
-  startDate!: Date;
-  sex!: string;
+  gender!: string;
   email!: string;
 }

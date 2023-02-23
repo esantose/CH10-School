@@ -4,16 +4,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AngularMaterialModule } from './helper/angular-material/angular-material.module';
-import { LayoutComponent } from './layout/layout.component';
-import { Layout1Component } from './layout1/layout1.component';
-import { CoursesComponent } from './components/courses/courses.component';
-import { StudentsComponent } from './components/students/students.component';
-import { TeachersComponent } from './components/teachers/teachers.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { StudentCrudComponent } from './components/students/student-crud/student-crud.component';
-import { TeacherCrudComponent } from './components/teachers/teacher-crud/teacher-crud.component';
-import { CourseCrudComponent } from './components/courses/course-crud/course-crud.component';
+import { AngularMaterialModule } from './shared/angular-material.module';
+import { StudentsModule } from './components/students/students.module';
+import { TeachersModule } from './components/teachers/teachers.module';
+import { CoursesModule } from './components/courses/courses.module';
+import { LayoutComponent } from './core/layout/layout.component';
+import { Layout1Component } from './core/layout1/layout1.component';
+import { DashboardComponent } from './core/dashboard/dashboard.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
@@ -21,13 +18,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     AppComponent,
     LayoutComponent,
     Layout1Component,
-    CoursesComponent,
-    StudentsComponent,
-    TeachersComponent,
     DashboardComponent,
-    StudentCrudComponent,
-    TeacherCrudComponent,
-    CourseCrudComponent
   ],
   imports: [
     BrowserModule,
@@ -35,8 +26,11 @@ import { ReactiveFormsModule } from '@angular/forms';
     BrowserAnimationsModule,
     AngularMaterialModule,
     ReactiveFormsModule,
+    StudentsModule,
+    TeachersModule,
+    CoursesModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

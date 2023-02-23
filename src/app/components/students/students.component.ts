@@ -1,37 +1,89 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { Student } from '@root/models/student';
 import { StudentService } from '../../services/student.service';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-students',
   templateUrl: './students.component.html',
   styleUrls: ['./students.component.scss'],
 })
-export class StudentsComponent implements OnInit {
+export class StudentsComponent {
+  @ViewChild(MatSort, { static: true }) sort!: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
+
+  studentList!: Student[];
   displayedColumns: string[] = [
     'firstName',
     'lastName',
     'birthDate',
-    'startDate',
-    'sex',
+    'gender',
     'email',
     'actions',
   ];
-  dataSource = new MatTableDataSource<Student>();
-  studentList!: Student[];
 
-  constructor(private studentService: StudentService) {}
+  dataSource: MatTableDataSource<Student> = new MatTableDataSource<Student>();
+
+  constructor(private studentService: StudentService, private router: Router) {}
 
   ngOnInit(): void {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
     this.LoadStudents();
   }
 
   LoadStudents() {
     this.studentList = this.studentService.getStudents();
-    console.log('lista..', this.studentList);
     this.dataSource = new MatTableDataSource<Student>(this.studentList);
 
-    //this.dataSource = new MatTableDataSource(this.listUser);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
+
+  addData() {
+    // const randomElementIndex = Math.floor(Math.random() * ELEMENT_DATA.length);
+    // this.dataSource.push(ELEMENT_DATA[randomElementIndex]);
+    // this.table.renderRows();
+  }
+
+  editData(index: number) {
+    console.log('editData', index);
+    this.router.navigate(['./editstudent/{{ index }}']);
+    // this.dataSource.pop();
+    // this.table.renderRows();
+    // this.studentService.removeStudent(index);
+    // this.LoadStudents();
+  }
+
+  removeData(index: number) {
+    console.log('removeData', index);
+    // this.dataSource.pop();
+    // this.table.renderRows();
+    this.studentService.removeStudent(index);
+    this.LoadStudents();
+  }
+
+  redirect() {
+    this.router.navigate(['./addstudent']);
+  }
+
+  // eliminarEmpleado(index: number) {
+
+  //   const dialogRef = this.dialog.open(MensajeConfirmacionComponent, {
+  //     width: '350px',
+  //     data: {mensaje: 'Esta seguro que desea eliminar el Empleado?'}
+  //   });
+
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     if (result === 'aceptar') {
+  //       this.empleadoService.eliminarEmpleado(index);
+  //       this.cargarEmpleados();
+  //       this.snackBar.open('El empleado fue eliminado con exito!', '', {
+  //         duration: 3000
+  //       });
+  //     }
+  //   });
 }

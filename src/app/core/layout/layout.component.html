@@ -6,7 +6,7 @@
 
     <span class="toolbar-spacer "></span>
     <div>
-      <a mat-button [routerLink]="'/home'"> Home </a>
+      <a mat-button [routerLink]="'/courses'"> Home </a>
       <a mat-button [routerLink]="'/contacts'"> Contacts </a>
       <a mat-button [routerLink]="'/about'"> About Us </a>
     </div>
@@ -48,7 +48,8 @@
 
   <mat-sidenav-content  >
     <div class="main">
-      <router-outlet #outlet="outlet"></router-outlet>
+      <!-- <router-outlet #outlet="outlet"></router-outlet> -->
+      <router-outlet></router-outlet>
     </div>
 
 
