@@ -9,17 +9,11 @@ import { StudentsModule } from './components/students/students.module';
 import { TeachersModule } from './components/teachers/teachers.module';
 import { CoursesModule } from './components/courses/courses.module';
 import { LayoutComponent } from './core/layout/layout.component';
-import { Layout1Component } from './core/layout1/layout1.component';
 import { DashboardComponent } from './core/dashboard/dashboard.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LayoutComponent,
-    Layout1Component,
-    DashboardComponent,
-  ],
+  declarations: [AppComponent, LayoutComponent, DashboardComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
