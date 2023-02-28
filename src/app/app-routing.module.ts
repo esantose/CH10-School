@@ -5,10 +5,26 @@ import { TeachersComponent } from './components/teachers/teachers.component';
 import { CoursesComponent } from './components/courses/courses.component';
 import { StudentCrudComponent } from './components/students/student-crud/student-crud.component';
 
+// const routes: Routes = [
+//   { path: '', component: StudentsComponent },
+//   { path: 'addstudent', component: StudentCrudComponent },
+//   { path: 'edit/:id', component: StudentCrudComponent },
+//   { path: 'teachers', component: TeachersComponent },
+//   { path: 'courses', component: CoursesComponent },
+//   { path: '**', component: StudentsComponent },
+// ];
+
 const routes: Routes = [
   { path: '', component: StudentsComponent },
-  { path: 'addstudent', component: StudentCrudComponent },
-  { path: 'edit/:id', component: StudentCrudComponent },
+  // { path: 'addstudent', component: StudentCrudComponent },
+  {
+    path: 'students',
+    loadChildren: () =>
+      import('./components/students/students.module').then(
+        (modulo) => modulo.StudentsModule
+      ),
+  },
+  // { path: 'edit/:id', component: StudentCrudComponent },
   { path: 'teachers', component: TeachersComponent },
   { path: 'courses', component: CoursesComponent },
   { path: '**', component: StudentsComponent },

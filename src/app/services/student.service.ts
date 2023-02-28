@@ -43,7 +43,9 @@ export class StudentService {
   }
 
   addStudent(student: Student) {
+    console.log('studentList.lenth..', this.studentList.length);
     this.studentList.unshift(student);
+    console.log('studentList.lenth..', this.studentList.length);
   }
 
   removeStudent(index: number) {

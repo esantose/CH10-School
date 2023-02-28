@@ -5,6 +5,7 @@ import { StudentService } from '../../services/student.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
+import { StudentCrudComponent } from './student-crud/student-crud.component';
 
 @Component({
   selector: 'app-students',
@@ -26,6 +27,7 @@ export class StudentsComponent {
   ];
 
   dataSource: MatTableDataSource<Student> = new MatTableDataSource<Student>();
+  dialog: any;
 
   constructor(private studentService: StudentService, private router: Router) {}
 
@@ -44,6 +46,7 @@ export class StudentsComponent {
   }
 
   addData() {
+    this.router.navigate(['./students/add']);
     // const randomElementIndex = Math.floor(Math.random() * ELEMENT_DATA.length);
     // this.dataSource.push(ELEMENT_DATA[randomElementIndex]);
     // this.table.renderRows();
@@ -51,11 +54,19 @@ export class StudentsComponent {
 
   editData(index: number) {
     console.log('editData', index);
-    this.router.navigate(['./editstudent/{{ index }}']);
-    // this.dataSource.pop();
-    // this.table.renderRows();
-    // this.studentService.removeStudent(index);
-    // this.LoadStudents();
+    // this.router.navigate(['./students/edit', { id: index }]);
+    this.router.navigate(['./students/edit', index]);
+  }
+
+  // redirect() {
+  //   this.router.navigate(['./students/add']);
+  // }
+
+  abrirModal(item: Student) {
+    console.log('abrirModal', item);
+    const dialogRef = this.dialog.open(StudentCrudComponent, {
+      data: item,
+    });
   }
 
   removeData(index: number) {
@@ -64,10 +75,6 @@ export class StudentsComponent {
     // this.table.renderRows();
     this.studentService.removeStudent(index);
     this.LoadStudents();
-  }
-
-  redirect() {
-    this.router.navigate(['./addstudent']);
   }
 
   // eliminarEmpleado(index: number) {
