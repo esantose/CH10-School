@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { MatTable, MatTableDataSource } from '@angular/material/table';
+import { MatTableDataSource } from '@angular/material/table';
 import { Student } from '@root/models/student';
 import { StudentService } from '../../services/student.service';
 import { MatPaginator } from '@angular/material/paginator';
@@ -8,89 +8,81 @@ import { Router } from '@angular/router';
 import { StudentCrudComponent } from './student-crud/student-crud.component';
 
 @Component({
-  selector: 'app-students',
-  templateUrl: './students.component.html',
-  styleUrls: ['./students.component.scss'],
+	selector: 'app-students',
+	templateUrl: './students.component.html',
+	styleUrls: ['./students.component.scss'],
 })
 export class StudentsComponent {
-  @ViewChild(MatSort, { static: true }) sort!: MatSort;
-  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
+	@ViewChild(MatSort, { static: true }) sort!: MatSort;
+	@ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
 
-  studentList!: Student[];
-  displayedColumns: string[] = [
-    'firstName',
-    'lastName',
-    'birthDate',
-    'gender',
-    'email',
-    'actions',
-  ];
+	studentList!: Student[];
+	displayedColumns: string[] = ['id', 'firstname', 'lastname', 'birthdate', 'gender', 'email', 'actions'];
 
-  dataSource: MatTableDataSource<Student> = new MatTableDataSource<Student>();
-  dialog: any;
+	dataSource: MatTableDataSource<Student> = new MatTableDataSource<Student>();
+	dialog: any;
 
-  constructor(private studentService: StudentService, private router: Router) {}
+	currentStudent: any;
+	currentIndex = -1;
+	message = '';
 
-  ngOnInit(): void {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-    this.LoadStudents();
-  }
+	constructor(private studentService: StudentService, private router: Router) {}
 
-  LoadStudents() {
-    this.studentList = this.studentService.getStudents();
-    this.dataSource = new MatTableDataSource<Student>(this.studentList);
+	ngOnInit(): void {
+		console.log('Loading ngOnInit...');
+		this.dataSource.paginator = this.paginator;
+		this.dataSource.sort = this.sort;
+		this.LoadStudents();
+	}
 
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-  }
+	LoadStudents() {
+		console.log('Loading...');
 
-  addData() {
-    this.router.navigate(['./students/add']);
-    // const randomElementIndex = Math.floor(Math.random() * ELEMENT_DATA.length);
-    // this.dataSource.push(ELEMENT_DATA[randomElementIndex]);
-    // this.table.renderRows();
-  }
+		this.studentService.list().subscribe(
+			(students: Student[]) => {
+				console.log(students.length);
+				console.log(students);
+				this.studentList = students;
+				this.dataSource = new MatTableDataSource<Student>(this.studentList);
 
-  editData(index: number) {
-    console.log('editData', index);
-    // this.router.navigate(['./students/edit', { id: index }]);
-    this.router.navigate(['./students/edit', index]);
-  }
+				this.dataSource.paginator = this.paginator;
+				this.dataSource.sort = this.sort;
+			},
+			(error: any) => {
+				console.log(error);
+			}
+		);
+	}
 
-  // redirect() {
-  //   this.router.navigate(['./students/add']);
-  // }
+	addData() {
+		this.router.navigate(['./students/add']);
+	}
 
-  abrirModal(item: Student) {
-    console.log('abrirModal', item);
-    const dialogRef = this.dialog.open(StudentCrudComponent, {
-      data: item,
-    });
-  }
+	// editData(index: number) {
+	// 	console.log('editData', index);
+	// 	// this.router.navigate(['./students/edit', { id: index }]);
+	// 	// ok  this.router.navigate(['./students/edit', index]);
+	// }
 
-  removeData(index: number) {
-    console.log('removeData', index);
-    // this.dataSource.pop();
-    // this.table.renderRows();
-    this.studentService.removeStudent(index);
-    this.LoadStudents();
-  }
+	abrirModal(item: Student) {
+		console.log('abrirModal', item);
+		const dialogRef = this.dialog.open(StudentCrudComponent, {
+			data: item,
+		});
+	}
 
-  // eliminarEmpleado(index: number) {
-
-  //   const dialogRef = this.dialog.open(MensajeConfirmacionComponent, {
-  //     width: '350px',
-  //     data: {mensaje: 'Esta seguro que desea eliminar el Empleado?'}
-  //   });
-
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     if (result === 'aceptar') {
-  //       this.empleadoService.eliminarEmpleado(index);
-  //       this.cargarEmpleados();
-  //       this.snackBar.open('El empleado fue eliminado con exito!', '', {
-  //         duration: 3000
-  //       });
-  //     }
-  //   });
+	removeData(index: number) {
+		// this.studentService.removeStudent(index);
+		// this.LoadStudents();
+		console.log('removeData-Index: ', index);
+		this.studentService.delete(index).subscribe(
+			response => {
+				this.LoadStudents();
+				//this.router.navigate(['/students']);
+			},
+			error => {
+				console.log(error);
+			}
+		);
+	}
 }

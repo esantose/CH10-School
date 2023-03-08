@@ -5,19 +5,11 @@ import { StudentsRoutingModule } from './students-routing.module';
 import { StudentsComponent } from './students.component';
 import { StudentCrudComponent } from './student-crud/student-crud.component';
 import { AngularMaterialModule } from '../../shared/angular-material.module';
-// import { Routes, RouterModule } from '@angular/router';
-
-// const routes: Routes = [
-//   { path: '', component: StudentsComponent },
-//   { path: 'add', component: StudentCrudComponent },
-//   { path: 'edit/:id', component: StudentCrudComponent },
-//   { path: '**', component: StudentsComponent },
-// ];
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
-  declarations: [StudentsComponent, StudentCrudComponent],
-  // imports: [CommonModule, AngularMaterialModule],
-  imports: [CommonModule, AngularMaterialModule, StudentsRoutingModule],
-  // exports: [RouterModule],
+	declarations: [StudentsComponent, StudentCrudComponent],
+	imports: [CommonModule, AngularMaterialModule, StudentsRoutingModule, ReactiveFormsModule, HttpClientModule],
 })
 export class StudentsModule {}

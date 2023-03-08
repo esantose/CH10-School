@@ -1,115 +1,144 @@
-import { Component, Input, ViewEncapsulation } from '@angular/core';
-import {
-  FormGroup,
-  FormControl,
-  FormBuilder,
-  Validators,
-} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Student } from '../../../models/student';
 import { StudentService } from '../../../services/student.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActionTypes } from '../../../shared/action-types.enum';
 
 @Component({
-  selector: 'app-student-crud',
-  templateUrl: './student-crud.component.html',
-  styleUrls: ['./student-crud.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+	selector: 'app-student-crud',
+	templateUrl: './student-crud.component.html',
+	styleUrls: ['./student-crud.component.scss'],
 })
-export class StudentCrudComponent {
-  action = 'Add';
-  idStudent: any;
-  myForm: FormGroup;
+export class StudentCrudComponent implements OnInit {
+	actionTypes: ActionTypes | undefined;
+	id_Index: any;
+	currentStudent: any;
+	myForm: FormGroup;
+	student = {
+		id: 0,
+		firstname: '',
+		lastname: '',
+		birthdate: '',
+		gender: '',
+		email: '',
+	};
 
-  constructor(
-    // public student: Student,
-    private fb: FormBuilder,
-    private studentService: StudentService,
-    private router: Router,
-    private aRoute: ActivatedRoute
-  ) {
-    this.myForm = this.fb.group({
-      firstName: ['', [Validators.required, Validators.maxLength(20)]],
-      lastName: ['', [Validators.required, Validators.email]],
-      birthDate: ['', [Validators.required]],
-      gender: ['', [Validators.required]],
-      email: ['', [Validators.required]],
-    });
+	constructor(
+		private fb: FormBuilder,
+		private studentService: StudentService,
+		private router: Router,
+		private aRoute: ActivatedRoute,
+		public snackBar: MatSnackBar
+	) {
+		this.myForm = this.fb.group({
+			firstname: ['', [Validators.required, Validators.maxLength(15)]],
+			lastname: ['', [Validators.required]],
+			birthdate: [Date.now],
+			gender: ['', [Validators.required]],
+			email: ['', [Validators.required, Validators.email]],
+		});
 
-    const idParam = 'id';
-    this.idStudent = this.aRoute.snapshot.params[idParam];
-    console.log('idStudent****: ' + this.idStudent);
-  }
+		this.id_Index = this.aRoute.snapshot.params['id'];
+	}
 
-  ngOnInit(): void {
-    console.log('Loading');
-    if (this.idStudent !== undefined) {
-      this.action = 'Edit';
-      this.esEditar();
-    }
-  }
+	ngOnInit(): void {
+		this.actionTypes = this.id_Index === undefined ? ActionTypes.ADD : ActionTypes.EDIT;
+		console.log('Loading-actionTypes: ', this.actionTypes, this.id_Index);
 
-  esEditar() {
-    const student: Student = this.studentService.getStudent(this.idStudent);
-    console.log(student);
-    this.myForm.patchValue({
-      firstName: student.firstName,
-      lastName: student.lastName,
-      birthDate: student.birthDate,
-      gender: student.gender,
-      email: student.email,
-    });
-  }
+		if (this.actionTypes === ActionTypes.EDIT) {
+			this.getStudent(this.id_Index);
+		}
+	}
 
-  guardarStudent() {
-    const student: Student = {
-      firstName: this.myForm.get('firstName')?.value,
-      lastName: this.myForm.get('lastName')?.value,
-      birthDate: this.myForm.get('birthDate')?.value,
-      gender: this.myForm.get('gender')?.value,
-      email: this.myForm.get('email')?.value,
-    };
-    console.log('guardarStudent...', student);
-    if (this.idStudent !== undefined) {
-      this.editStudent(student);
-    } else {
-      this.addStudent(student);
-    }
-  }
+	getStudent(id: number | null): void {
+		console.log('getStudent.crud.', id);
+		this.studentService.getItem(id).subscribe(
+			(student: Student) => {
+				console.log('getStudent.crud-student..', student);
+				// this.currentBook = student;
+				this.myForm.patchValue({
+					// id: student.id,
+					firstname: student.firstname,
+					lastname: student.lastname,
+					birthdate: student.birthdate,
+					gender: student.gender,
+					email: student.email,
+				});
+				console.log(student);
+			},
+			(error: any) => {
+				console.log(error);
+			}
+		);
+	}
 
-  addStudent(student: Student) {
-    console.log('addStudent');
-    this.studentService.addStudent(student);
-    // this.snackBar.open('El empleado fue registrado con exito!', '', {
-    //   duration: 3000
-    // });
-    this.router.navigate(['/']);
-  }
+	SaveStudent() {
+		console.log('Save Student...');
+		const student: Student = {
+			// id: this.myForm.value.id,
+			firstname: this.myForm.value.firstname,
+			lastname: this.myForm.value.lastname,
+			birthdate: this.myForm.get('birthdate')?.value,
+			gender: this.myForm.get('gender')?.value,
+			email: this.myForm.value.email,
+			id: 0,
+		};
 
-  editStudent(student: Student) {
-    console.log('editStudent');
-    this.studentService.editStudent(student, this.idStudent);
-    // this.snackBar.open('El empleado fue actualizado con exito!', '', {
-    //   duration: 3000
-    // });
-    this.router.navigate(['/']);
-  }
+		switch (this.actionTypes) {
+			case ActionTypes.ADD:
+				this.addStudent(student);
+				break;
+			case ActionTypes.EDIT:
+				// this.editStudent(student);
+				this.updateStudent();
+				break;
+		}
+	}
 
-  onSubmit() {
-    // TODO: Use EventEmitter with form value
-    console.log('guardarStudent.0..');
-    console.warn(this.myForm.value);
-    const student: Student = {
-      firstName: this.myForm.get('firstName')?.value,
-      lastName: this.myForm.get('lastName')?.value,
-      birthDate: this.myForm.get('birthDate')?.value,
-      gender: this.myForm.get('gender')?.value,
-      email: this.myForm.get('email')?.value,
-    };
-    console.log('guardarStudent...', student);
-    if (this.idStudent !== undefined) {
-      this.editStudent(student);
-    } else {
-      this.addStudent(student);
-    }
-  }
+	addStudent(student: Student): void {
+		const data = student;
+		console.log('addStudent_http.2..', data);
+
+		if (!data.firstname) {
+			alert('Please add title!');
+			return;
+		}
+
+		this.studentService.create(data).subscribe(
+			response => {
+				console.log(response);
+				// this.isStudentAdded = true;
+				this.router.navigate(['students']);
+			},
+			error => {
+				console.log(error);
+			}
+		);
+	}
+
+	// editStudent(student: Student) {
+	// 	console.log('editStudent', student);
+	// 	this.studentService.editStudent(student, this.id_Index);
+	// 	this.snackBar.open('The student has been updated succesfuly!', '', {
+	// 		duration: 3000,
+	// 	});
+
+	// 	this.router.navigate(['students']);
+	// }
+
+	updateStudent(): void {
+		this.studentService.update(this.currentStudent.id, this.currentStudent).subscribe(
+			response => {
+				console.log(response);
+				this.snackBar.open('The student has been updated succesfuly!', '', {
+					duration: 3000,
+				});
+			},
+			error => {
+				console.log(error);
+			}
+		);
+	}
 }

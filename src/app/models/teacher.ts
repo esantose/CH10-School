@@ -1,5 +1,4 @@
-export interface Student {
-	id: number;
+export interface ITeacher {
 	firstname: string;
 	lastname: string;
 	birthdate: Date;

@@ -1,53 +1,26 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { StudentsComponent } from './components/students/students.component';
-import { TeachersComponent } from './components/teachers/teachers.component';
-import { CoursesComponent } from './components/courses/courses.component';
-import { StudentCrudComponent } from './components/students/student-crud/student-crud.component';
-
-// const routes: Routes = [
-//   { path: '', component: StudentsComponent },
-//   { path: 'addstudent', component: StudentCrudComponent },
-//   { path: 'edit/:id', component: StudentCrudComponent },
-//   { path: 'teachers', component: TeachersComponent },
-//   { path: 'courses', component: CoursesComponent },
-//   { path: '**', component: StudentsComponent },
-// ];
+import { DashboardComponent } from './core/dashboard/dashboard.component';
 
 const routes: Routes = [
-  { path: '', component: StudentsComponent },
-  // { path: 'addstudent', component: StudentCrudComponent },
-  {
-    path: 'students',
-    loadChildren: () =>
-      import('./components/students/students.module').then(
-        (modulo) => modulo.StudentsModule
-      ),
-  },
-  // { path: 'edit/:id', component: StudentCrudComponent },
-  { path: 'teachers', component: TeachersComponent },
-  { path: 'courses', component: CoursesComponent },
-  { path: '**', component: StudentsComponent },
+	{ path: '', component: DashboardComponent },
+	{
+		path: 'students',
+		loadChildren: () => import('./components/students/students.module').then(modulo => modulo.StudentsModule),
+	},
+	{
+		path: 'teachers',
+		loadChildren: () => import('./components/teachers/teachers.module').then(modulo => modulo.TeachersModule),
+	},
+	{
+		path: 'courses',
+		loadChildren: () => import('./components/courses/courses.module').then(modulo => modulo.CoursesModule),
+	},
+	{ path: '**', component: DashboardComponent },
 ];
 
-// const routes1: Routes = [
-//   {
-//     path: '',
-//     component: HomePageComponent
-//   },
-//   {
-//     path: 'home',
-//     component: HomePageComponent
-//   },
-//   {
-//     path: 'profile',
-//     component: ProfileComponent
-//   },
-
-// ];
-
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
+	imports: [RouterModule.forRoot(routes)],
+	exports: [RouterModule],
 })
 export class AppRoutingModule {}

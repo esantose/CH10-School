@@ -1,0 +1,36 @@
+{
+  "students": [
+    {
+      "firstname": "Edgardo",
+      "lastname": "Santos",
+      "birthdate": "2023-03-05T05:00:00.000Z",
+      "gender": "Masculino",
+      "email": "easantose@gmail.com",
+      "id": 1
+    },
+    {
+      "firstname": "Milka",
+      "lastname": "Santos",
+      "birthdate": "2023-03-05T05:00:00.000Z",
+      "gender": "Femenino",
+      "email": "abc@gmail.com1",
+      "id": 3
+    },
+    {
+      "firstname": "Jacque",
+      "lastname": "Santos",
+      "birthdate": "2023-03-01T05:00:00.000Z",
+      "gender": "Femenino",
+      "email": "easantose@gmail.com",
+      "id": 4
+    },
+    {
+      "firstname": "Lizardo",
+      "lastname": "Santos",
+      "birthdate": "2023-03-03T05:00:00.000Z",
+      "gender": "Masculino",
+      "email": "paula@gmail.com",
+      "id": 5
+    }
+  ]
+}
