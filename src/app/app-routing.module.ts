@@ -1,9 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './core/dashboard/dashboard.component';
+// import { LoginComponent } from './auth/login/login.component';
 
 const routes: Routes = [
 	{ path: '', component: DashboardComponent },
+	{
+		path: 'login',
+		loadChildren: () => import('./auth/auth.module').then(modulo => modulo.AuthModule),
+	},
+	// { path: 'login', component: LoginComponent },
 	{
 		path: 'students',
 		loadChildren: () => import('./components/students/students.module').then(modulo => modulo.StudentsModule),
