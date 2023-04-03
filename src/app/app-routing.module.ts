@@ -1,18 +1,20 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DashboardComponent } from './core/dashboard/dashboard.component';
-// import { LoginComponent } from './auth/login/login.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+// import { InicioComponent } from './components/inicio/inicio.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { SesionGuard } from './guards/sesion.guard';
 
 const routes: Routes = [
-	{ path: '', component: DashboardComponent },
+	// { path: 'inicio', component: InicioComponent, canActivate: [SesionGuard] },
 	{
-		path: 'login',
+		path: 'auth',
 		loadChildren: () => import('./auth/auth.module').then(modulo => modulo.AuthModule),
 	},
-	// { path: 'login', component: LoginComponent },
 	{
 		path: 'students',
 		loadChildren: () => import('./components/students/students.module').then(modulo => modulo.StudentsModule),
+		// canLoad: [SesionGuard],
 	},
 	{
 		path: 'teachers',
@@ -22,6 +24,8 @@ const routes: Routes = [
 		path: 'courses',
 		loadChildren: () => import('./components/courses/courses.module').then(modulo => modulo.CoursesModule),
 	},
+	{ path: 'profile', component: ProfileComponent },
+	// { path: '', redirectTo: 'start', pathMatch: 'full' },
 	{ path: '**', component: DashboardComponent },
 ];
 

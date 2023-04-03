@@ -40,19 +40,13 @@ export class TeachersComponent {
 
 	addData() {
 		this.router.navigate(['./teachers/add']);
-		// const randomElementIndex = Math.floor(Math.random() * ELEMENT_DATA.length);
-		// this.dataSource.push(ELEMENT_DATA[randomElementIndex]);
-		// this.table.renderRows();
 	}
 
 	editData(index: number) {
 		console.log('editData', index);
-		// this.router.navigate(['./students/edit', { id: index }]);
-		// ok  this.router.navigate(['./students/edit', index]);
 	}
 
 	abrirModal(item: ITeacher) {
-		console.log('abrirModal', item);
 		const dialogRef = this.dialog.open(TeacherCrudComponent, {
 			data: item,
 		});

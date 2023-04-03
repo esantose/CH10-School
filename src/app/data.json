@@ -1,12 +1,12 @@
 {
   "students": [
     {
+      "id": 1,
       "firstname": "Edgardo",
       "lastname": "Santos",
       "birthdate": "2023-03-05T05:00:00.000Z",
       "gender": "Masculino",
-      "email": "easantose@gmail.com",
-      "id": 1
+      "email": "easantose@gmail.com"
     },
     {
       "firstname": "Milka",
@@ -25,12 +25,42 @@
       "id": 4
     },
     {
+      "id": 5,
       "firstname": "Lizardo",
       "lastname": "Santos",
       "birthdate": "2023-03-03T05:00:00.000Z",
       "gender": "Masculino",
-      "email": "paula@gmail.com",
-      "id": 5
+      "email": "paula@gmail.com"
+    }
+  ],
+  "users": [
+    {
+      "firstname": "Edgardo",
+      "lastname": "Santos",
+      "email": "adm@gmail.com",
+      "password": "adm",
+      "isAdmin": true,
+      "id": 1
+    },
+    {
+      "id": 2,
+      "firstname": "Juan",
+      "lastname": "Perez",
+      "email": "user@gmail.com",
+      "password": "user",
+      "isAdmin": false
+    }
+  ],
+  "usuarios": [
+    {
+      "usuario": "abner",
+      "contrasena": "asd.123",
+      "esAdmin": true
+    },
+    {
+      "usuario": "rommel",
+      "contrasena": "asd.123",
+      "esAdmin": false
     }
   ]
 }

@@ -35,7 +35,6 @@ export class CourseCrudComponent {
 
 	ngOnInit(): void {
 		this.actionTypes = this.id_Index === undefined ? ActionTypes.ADD : ActionTypes.EDIT;
-		console.log('Loading-actionTypes: ', this.actionTypes, this.id_Index);
 
 		if (this.actionTypes === ActionTypes.EDIT) {
 			this.DisplayCourse();

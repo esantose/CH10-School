@@ -37,7 +37,6 @@ export class TeacherCrudComponent {
 
 	ngOnInit(): void {
 		this.actionTypes = this.id_Index === undefined ? ActionTypes.ADD : ActionTypes.EDIT;
-		console.log('Loading-actionTypes: ', this.actionTypes, this.id_Index);
 
 		if (this.actionTypes === ActionTypes.EDIT) {
 			this.DisplayTeacher();
@@ -76,14 +75,12 @@ export class TeacherCrudComponent {
 	}
 
 	addTeacher(teacher: ITeacher) {
-		console.log('addStudent');
 		this.teacherService.addTeacher(teacher);
 		this.snackBar.open('The Teacher has beed added succesfuly!', '', { duration: 3000 });
 		this.router.navigate(['teachers']);
 	}
 
 	editTeacher(teacher: ITeacher) {
-		console.log('editStudent', teacher);
 		this.teacherService.editTeacher(teacher, this.id_Index);
 		this.snackBar.open('The student has been updated succesfuly!', '', {
 			duration: 3000,
