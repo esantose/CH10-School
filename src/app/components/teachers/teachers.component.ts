@@ -43,7 +43,7 @@ export class TeachersComponent {
 	}
 
 	editData(index: number) {
-		console.log('editData', index);
+		alert('No yet implemenmted');
 	}
 
 	abrirModal(item: ITeacher) {

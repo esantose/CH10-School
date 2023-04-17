@@ -15,8 +15,8 @@ const studentRoutes: Routes = [
 		canActivateChild: [SesionGuard],
 		children: [
 			{ path: 'list', component: StudentsComponent },
-			{ path: 'add', component: StudentCrudComponent },
-			{ path: 'edit/:id', component: StudentCrudComponent },
+			{ path: 'add', component: StudentCrudComponent, canActivate: [AdminGuard] },
+			{ path: 'edit/:id', component: StudentCrudComponent, canActivate: [AdminGuard] },
 			{ path: '**', component: StudentsComponent },
 		],
 	},

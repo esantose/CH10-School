@@ -40,19 +40,13 @@ export class CoursesComponent {
 
 	addData() {
 		this.router.navigate(['./courses/add']);
-		// const randomElementIndex = Math.floor(Math.random() * ELEMENT_DATA.length);
-		// this.dataSource.push(ELEMENT_DATA[randomElementIndex]);
-		// this.table.renderRows();
 	}
 
 	editData(index: number) {
-		console.log('editData', index);
-		// this.router.navigate(['./Courses/edit', { id: index }]);
-		// ok  this.router.navigate(['./Courses/edit', index]);
+		alert('No yet implemenmted');
 	}
 
 	abrirModal(item: ICourse) {
-		console.log('abrirModal', item);
 		const dialogRef = this.dialog.open(CourseCrudComponent, {
 			data: item,
 		});

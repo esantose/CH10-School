@@ -27,11 +27,17 @@ mat-sidenav-container {
   height: calc(100vh - 65px);
 }
 
-
 mat-divider {
   margin-top: 10px;
   margin-bottom: 10px;
   background-color: rgba(33, 11, 203, 0.192);
+}
+
+.avatar {
+  margin-top: 16px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
 }
 
 .header {

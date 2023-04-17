@@ -16,6 +16,7 @@ import { StudentState } from '@root/features/students/student-state.reducer';
 import { selectorLoadingStudents, selectorStudentsLoaded } from '@root/features/students/student-state.selectors';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { deleteStudentState } from '@root/features/students/student-state.actions';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
 	selector: 'app-students',
@@ -43,9 +44,10 @@ export class StudentsComponent {
 	constructor(
 		private studentService: StudentService,
 		private router: Router,
-		private sesion: SesionService,
+		public sesion: SesionService,
 		private dialog: MatDialog,
 		private store: Store<StudentState>,
+		private toastrService: ToastrService,
 		private snackBar: MatSnackBar
 	) {}
 
@@ -77,18 +79,6 @@ export class StudentsComponent {
 	}
 
 	removeData(student: Student) {
-		// this.studentService.removeStudent(index);
-		// this.LoadStudents();
-		console.log('removeData-Index: ', student);
 		this.store.dispatch(deleteStudentState({ student }));
-		// this.studentService.delete(index).subscribe(
-		// 	response => {
-		// 		this.LoadStudents();
-		// 		//this.router.navigate(['/students']);
-		// 	},
-		// 	error => {
-		// 		console.log(error);
-		// 	}
-		// );
 	}
 }

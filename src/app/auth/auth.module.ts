@@ -12,6 +12,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { StoreModule } from '@ngrx/store';
 import { authFeatureKey, authReducer } from './../features/auth/auth.reducer';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
 	declarations: [LoginComponent, RegisterComponent, AuthStartComponent, ProfileComponent],
@@ -20,6 +21,7 @@ import { authFeatureKey, authReducer } from './../features/auth/auth.reducer';
 		AuthRoutingModule,
 		ReactiveFormsModule,
 		AngularMaterialModule,
+		SharedModule,
 		StoreModule.forFeature(authFeatureKey, authReducer),
 	],
 })

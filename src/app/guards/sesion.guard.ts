@@ -29,10 +29,8 @@ export class SesionGuard implements CanActivate, CanActivateChild, CanLoad {
 		return this.authStore.select(selectSesionState).pipe(
 			map((sesion: Sesion) => {
 				if (sesion.sesionActiva) {
-					console.log('sesion is Activa');
 					return true;
 				} else {
-					console.log('sesionis NOT Activa');
 					this.router.navigate(['auth/login']);
 					return false;
 				}
@@ -59,7 +57,6 @@ export class SesionGuard implements CanActivate, CanActivateChild, CanLoad {
 		route: Route,
 		segments: UrlSegment[]
 	): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-		console.log('SesionGuard-canLoad');
 		return this.authStore.select(selectSesionState).pipe(
 			map((sesion: Sesion) => {
 				if (sesion.sesionActiva) {

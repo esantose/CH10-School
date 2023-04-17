@@ -56,7 +56,7 @@ export class RegisterComponent implements OnInit {
 				this.router.navigate(['auth/login']);
 			},
 			(error: any) => {
-				console.log(error);
+				this.toastrService.error('Signup Failed', error.message);
 			}
 		);
 	}

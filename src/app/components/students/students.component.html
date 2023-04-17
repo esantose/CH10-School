@@ -56,7 +56,8 @@
     <a class="pointer" routerLink="edit/{{ element.id }}" style="color: #1878B0;">
       <mat-icon >edit</mat-icon>
     </a>    
-    <a (click)="removeData(element)"  class="pointer" style="color: #E15639;">
+    <a (click)="removeData(element)"  class="pointer" style="color: #E15639;" 
+    *ngIf="this.sesion.currentSesion?.currentUser?.isAdmin">
       <mat-icon>delete</mat-icon>
     </a>
   </td>

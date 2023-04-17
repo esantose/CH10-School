@@ -45,7 +45,6 @@ export class TeacherCrudComponent {
 
 	DisplayTeacher() {
 		const teacher: ITeacher = this.teacherService.getTeacher(this.id_Index);
-		console.log('esEditar..', teacher);
 		this.myForm.patchValue({
 			firstname: teacher.firstname,
 			lastname: teacher.lastname,

@@ -14,5 +14,8 @@ npm i @ngrx/store-devtools
 Chater 17:
 ng add @ngrx/schematics (To add features)
 
+Chaper 18:
+ng add @ngrx/effects@latest
+
 TODO
 Remove folder: app/store

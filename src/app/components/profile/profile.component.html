@@ -1,1 +1,38 @@
-<p>profile works!</p>
+<div class="row">
+  <div style="float: left"><h1>User Profile</h1></div>
+  <div style="float: right"><h2>{{this.sesionServ.currentSesion?.currentUser?.isAdmin ? 'Administrator' : '' }}</h2></div>
+  <div style="clear: both;"></div>
+</div>
+<div style="width: 50%; float:left">
+  <div class="form-wraper">
+    <div class="form-container">
+      <h1>User Profile</h1>
+      <h3>{{this.sesionServ.currentSesion?.currentUser?.isAdmin ? 'Administrator' : '' }}</h3>
+      <mat-toolbar>
+        <span>User Profile</span>
+     </mat-toolbar>
+     <mat-card-content>
+      <form [formGroup]="myForm">
+        <mat-form-field [style.fontSize.px]=16>
+          <mat-label>Id</mat-label>
+          <input matInput formControlName="id" readonly="true">
+        </mat-form-field>
+        <mat-form-field class="full-width">
+          <mat-label>First Name</mat-label>
+              <input matInput formControlName="firstname" placeholder="First name">
+          </mat-form-field>      
+  
+      </form>
+  
+     </mat-card-content>
+    </div>
+  
+  </div>   
+</div>
+
+<div style="width: 50%; float:right">
+  #right content in there
+</div>
+
+
+

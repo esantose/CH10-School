@@ -43,7 +43,6 @@ export class StudentCrudComponent implements OnInit {
 		// private dialogRef: MatDialogRef<StudentCrudComponent>,
 		private store: Store<StudentState> // @Inject(MAT_DIALOG_DATA) student: Student
 	) {
-		console.log('constructor');
 		this.myForm = this.fb.group({
 			id: [],
 			firstname: ['', [Validators.required, Validators.maxLength(15)]],
@@ -54,7 +53,6 @@ export class StudentCrudComponent implements OnInit {
 		});
 
 		this.id_Index = this.aRoute.snapshot.params['id'];
-		console.log(this.id_Index);
 	}
 
 	ngOnInit(): void {
@@ -67,7 +65,6 @@ export class StudentCrudComponent implements OnInit {
 	getStudent(id: number | null): void {
 		this.studentService.getItem(id).subscribe(
 			(student: Student) => {
-				console.log('getStudent.crud-student..', student);
 				this.myForm.patchValue({
 					id: student.id,
 					firstname: student.firstname,
@@ -76,38 +73,14 @@ export class StudentCrudComponent implements OnInit {
 					gender: student.gender,
 					email: student.email,
 				});
-				console.log(student);
 			},
 			(error: any) => {
-				console.log(error);
+				alert(error);
 			}
 		);
-		// this.students$ = this.studentService.getStudents();
-		// this.studentService.getItem(id).subscribe(
-		// 	(student: Student) => {
-		// 			id: student.id,
-		// 			firstname: student.firstname,
-		// 			lastname: student.lastname,
-		// 			birthdate: student.birthdate,
-		// 			gender: student.gender,
-		// 			email: student.email
-		// 	}
-
-		// )
-		// let student: Student = {
-		// 	id: this.student.id,
-		// 	firstname: this.myForm.value.firsmyFormtname,
-		// 	lastname: this.myForm.value.lastname,
-		// 	birthdate: this.myForm.value.birthdate,
-		// 	gender: this.myForm.value.gender,
-		// 	email: this.myForm.value.email,
-		// };
-		// this.store.dispatch(editStudentState({ student: student }));
-		// this.dialogRef.close(student);
 	}
 
 	SaveStudent() {
-		console.log('Saving student');
 		const student: Student = {
 			id: this.myForm.value.id,
 			firstname: this.myForm.value.firstname,
@@ -115,9 +88,7 @@ export class StudentCrudComponent implements OnInit {
 			birthdate: this.myForm.get('birthdate')?.value,
 			gender: this.myForm.get('gender')?.value,
 			email: this.myForm.value.email,
-			// id: 0,
 		};
-		console.log('Save Student...', student);
 		switch (this.actionTypes) {
 			case ActionTypes.ADD:
 				this.addStudent(student);
@@ -132,47 +103,10 @@ export class StudentCrudComponent implements OnInit {
 	addStudent(student: Student): void {
 		const data = student;
 		this.store.dispatch(addStudentState({ student: student }));
-		// if (!data.firstname) {
-		// 	alert('Please add title!');
-		// 	return;
-		// }
-
-		// this.studentService.create(data).subscribe(
-		// 	response => {
-		// 		this.router.navigate(['students']);
-		// 	},
-		// 	error => {
-		// 		console.log(error);
-		// 	}
-		// );
 	}
 
-	// editStudent(student: Student) {
-	// 	console.log('editStudent', student);
-	// 	this.studentService.editStudent(student, this.id_Index);
-	// 	this.snackBar.open('The student has been updated succesfuly!', '', {
-	// 		duration: 3000,
-	// 	});
-
-	// 	this.router.navigate(['students']);
-	// }
-
 	updateStudent(): void {
-		console.log('updateStudent', this.currentStudent);
 		this.store.dispatch(editStudentState({ student: this.currentStudent }));
 		this.router.navigate(['students']);
-		// this.dialogRef.close(this.student);
-		// this.studentService.update(this.currentStudent.id, this.currentStudent).subscribe(
-		// 	response => {
-		// 		console.log(response);
-		// 		this.snackBar.open('The student has been updated succesfuly!', '', {
-		// 			duration: 3000,
-		// 		});
-		// 		this.router.navigate(['students']);
-		// 	},
-		// 	error => {
-		// 		console.log(error);
-		// 	}
-		// );
 	}
 }

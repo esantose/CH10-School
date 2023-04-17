@@ -1,14 +1,6 @@
 {
   "students": [
     {
-      "id": 1,
-      "firstname": "Edgardo",
-      "lastname": "Santos",
-      "birthdate": "2023-03-05T05:00:00.000Z",
-      "gender": "Masculino",
-      "email": "easantose@gmail.com"
-    },
-    {
       "firstname": "Milka",
       "lastname": "Santos",
       "birthdate": "2023-03-05T05:00:00.000Z",

@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-// import { InicioComponent } from './components/inicio/inicio.component';
 import { ProfileComponent } from './components/profile/profile.component';
-import { SesionGuard } from './guards/sesion.guard';
+import { ContactComponent } from './components/contact/contact.component';
+import { AboutComponent } from './components/about/about.component';
+import { TestComponent } from './components/test/test.component';
 
 const routes: Routes = [
 	// { path: 'inicio', component: InicioComponent, canActivate: [SesionGuard] },
@@ -25,7 +26,9 @@ const routes: Routes = [
 		loadChildren: () => import('./components/courses/courses.module').then(modulo => modulo.CoursesModule),
 	},
 	{ path: 'profile', component: ProfileComponent },
-	// { path: '', redirectTo: 'start', pathMatch: 'full' },
+	// { path: 'contact', component: ContactComponent },
+	// { path: 'about', component: AboutComponent },
+	{ path: 'test', component: TestComponent },
 	{ path: '**', component: DashboardComponent },
 ];
 

@@ -1,10 +1,7 @@
 import { IUser } from './../../models/user';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { AuthState } from './../../features/auth/auth.reducer';
-import { selectSesionActiva, selectCurrentUser } from './../../features/auth/auth.selectors';
 import { SesionService } from '../../services/sesion.service';
 import { Sesion } from '../../models/sesion';
 
@@ -15,27 +12,22 @@ import { Sesion } from '../../models/sesion';
 })
 export class LayoutComponent {
 	sesion$!: Observable<Sesion>;
-	sesionActiva$!: Observable<Boolean>;
-	currentUser$!: Observable<IUser | undefined>;
 
-	constructor(private router: Router, private authStore: Store<AuthState>, private sesion: SesionService) {}
+	constructor(private router: Router, public sesionServ: SesionService) {}
 
 	ngOnInit(): void {
-		this.sesion$ = this.sesion.obtenerSesion();
-		this.sesionActiva$ = this.authStore.select(selectSesionActiva);
-		this.currentUser$ = this.authStore.select(selectCurrentUser);
+		this.sesion$ = this.sesionServ.obtenerSesion();
+		if (!this.sesionServ.isLoggedIn) {
+			this.router.navigate(['auth/login']);
+		}
 	}
 
-	logout() {
-		let sesionLogout: Sesion = {
-			sesionActiva: false,
-			currentUser: undefined,
-		};
-		this.sesion.logout(sesionLogout);
+	login() {
 		this.router.navigate(['auth/login']);
 	}
 
-	redigirInicio() {
-		this.router.navigate(['start']);
+	logout() {
+		this.sesionServ.logout();
+		this.router.navigate(['auth/login']);
 	}
 }

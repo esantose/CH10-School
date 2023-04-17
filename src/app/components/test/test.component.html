@@ -1,0 +1,10 @@
+<mat-toolbar>
+  <span>My App</span>
+  <span class="spacer"></span>
+  <ng-container *ngIf="authService.isLoggedIn$ | async; else showLogin">
+    <button mat-button (click)="logout()">Logout</button>
+  </ng-container>
+  <ng-template #showLogin>
+    <button mat-button routerLink="/login">Login</button>
+  </ng-template>
+</mat-toolbar>

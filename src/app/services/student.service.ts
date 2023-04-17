@@ -1,6 +1,5 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-// import { catchError } from 'rxjs/operators';
 import { catchError, Observable, throwError } from 'rxjs';
 
 import { Student } from '../models/student';
@@ -28,12 +27,6 @@ export class StudentService {
 		return this.httpClient.post(this.apiUrl, data).pipe(catchError(this.handleError));
 	}
 
-	// delete(id: number): Observable<any> {
-	// 	const tmp = `${this.apiUrl}/${id}`;
-	// 	console.log(tmp);
-	// 	return this.httpClient.delete(`${this.apiUrl}/${id}`).pipe(catchError(this.handleError));
-	// }
-
 	deleteStudent(student: Student): Observable<Student> {
 		return this.httpClient
 			.delete<Student>(`${env.apiUrl}/${student.id}`, {
@@ -44,19 +37,10 @@ export class StudentService {
 			.pipe(catchError(this.handleError));
 	}
 
-	// getStudent(index: number) {
-	// 	return this.studentList[index];
-	// }
-
 	// Create new item
 	getItem(id: any): Observable<any> {
 		return this.httpClient.get(`${this.apiUrl}/${id}`).pipe(catchError(this.handleError));
 	}
-
-	// Edit/ Update
-	// update(id: any, data: any): Observable<any> {
-	// 	return this.httpClient.put(`${this.apiUrl}/${id}`, data).pipe(catchError(this.handleError));
-	// }
 
 	editStudent(student: Student): Observable<Student> {
 		return this.httpClient
