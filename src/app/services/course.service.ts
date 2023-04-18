@@ -24,27 +24,17 @@ export class CourseService {
 		{
 			id: 4,
 			name: 'C#',
-			description: '',
+			description: '.net Programming Language',
 		},
 		{
 			id: 5,
 			name: 'MVC',
-			description: '',
+			description: '.net Programming Language',
 		},
 		{
 			id: 6,
 			name: 'SQL',
-			description: '',
-		},
-		{
-			id: 7,
-			name: 'AWS',
-			description: '',
-		},
-		{
-			id: 8,
-			name: 'iCoud',
-			description: '',
+			description: 'Microsoft SQL Server',
 		},
 	];
 	constructor() {}

@@ -50,14 +50,13 @@
   <td mat-cell *matCellDef="let element">{{element.email}}</td>
 </ng-container>
 
-<ng-container matColumnDef="actions">
+<ng-container matColumnDef="actions" >
   <th mat-header-cell mat-header-cell *matHeaderCellDef> Actions </th>
   <td mat-cell *matCellDef="let element; let i = index"> 
-    <a class="pointer" routerLink="edit/{{ element.id }}" style="color: #1878B0;">
+    <a class="pointer" routerLink="edit/{{ element.id }}" style="color: #1878B0;" *ngIf="this.sesion.currentSesion?.currentUser?.isAdmin">
       <mat-icon >edit</mat-icon>
     </a>    
-    <a (click)="removeData(element)"  class="pointer" style="color: #E15639;" 
-    *ngIf="this.sesion.currentSesion?.currentUser?.isAdmin">
+    <a (click)="removeData(element)"  class="pointer" style="color: #E15639;" *ngIf="this.sesion.currentSesion?.currentUser?.isAdmin">
       <mat-icon>delete</mat-icon>
     </a>
   </td>

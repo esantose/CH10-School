@@ -20,12 +20,10 @@ export class AdminGuard implements CanActivate {
 	): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 		return this.authStore.select(selectSesionState).pipe(
 			map((sesion: Sesion) => {
-				console.log('canActivate', sesion.currentUser);
 				if (sesion.currentUser?.isAdmin) {
 					return true;
 				} else {
 					this.toastrService.error('User does not have administrator permissions', 'Actions no allowed');
-					// this.router.navigate(['inicio']);
 					return false;
 				}
 				// return true;

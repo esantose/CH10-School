@@ -1,11 +1,14 @@
 import { Component, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { ICourse } from '@root/models/course';
+import { Sesion } from 'src/app/models/sesion';
 import { CourseService } from '../../services/course.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { CourseCrudComponent } from './course-crud/course-crud.component';
+import { SesionService } from '@root/services/sesion.service';
+import { Observable } from 'rxjs';
 
 @Component({
 	selector: 'app-courses',
@@ -18,16 +21,18 @@ export class CoursesComponent {
 
 	CourseList!: ICourse[];
 	displayedColumns: string[] = ['id', 'name', 'description', 'actions'];
+	sesion$!: Observable<Sesion>;
 
 	dataSource: MatTableDataSource<ICourse> = new MatTableDataSource<ICourse>();
 	dialog: any;
 
-	constructor(private CourseService: CourseService, private router: Router) {}
+	constructor(private CourseService: CourseService, private router: Router, public sesion: SesionService) {}
 
 	ngOnInit(): void {
 		this.dataSource.paginator = this.paginator;
 		this.dataSource.sort = this.sort;
 		this.LoadCourses();
+		this.sesion$ = this.sesion.obtenerSesion();
 	}
 
 	LoadCourses() {

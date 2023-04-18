@@ -6,6 +6,9 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { TeacherCrudComponent } from './teacher-crud/teacher-crud.component';
+import { SesionService } from '@root/services/sesion.service';
+import { Observable } from 'rxjs';
+import { Sesion } from '@root/models/sesion';
 
 @Component({
 	selector: 'app-teachers',
@@ -21,13 +24,15 @@ export class TeachersComponent {
 
 	dataSource: MatTableDataSource<ITeacher> = new MatTableDataSource<ITeacher>();
 	dialog: any;
+	sesion$!: Observable<Sesion>;
 
-	constructor(private teacherService: TeacherService, private router: Router) {}
+	constructor(private teacherService: TeacherService, private router: Router, public sesion: SesionService) {}
 
 	ngOnInit(): void {
 		this.dataSource.paginator = this.paginator;
 		this.dataSource.sort = this.sort;
 		this.LoadTeachers();
+		this.sesion$ = this.sesion.obtenerSesion();
 	}
 
 	LoadTeachers() {
